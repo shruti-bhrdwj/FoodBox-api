@@ -42,6 +42,17 @@ public class ProductService {
 		return listByVendor;
 	}
 	
+	public List<Product> findProductByName(String productName) {
+		List<Product> list = productRepository.findAll();
+		List<Product> listByName = new ArrayList<>();
+		for (Product p : list) {
+			if(p.getName().toLowerCase().contains(productName.toLowerCase())) {
+				listByName.add(p);
+			}
+		}
+		return listByName;
+	}
+	
 	public Product findProductById(int productId) {
 		return productRepository.findById(productId).get();
 	}

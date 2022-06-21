@@ -8,7 +8,7 @@ public class FoodboxApiApplication {
 
 	public static void main(String[] args) {
 		SpringApplication.run(FoodboxApiApplication.class, args);
-		System.out.println("FoodBox is running!");
+		System.out.println("FoodBox api works!");
 	}
 
 }

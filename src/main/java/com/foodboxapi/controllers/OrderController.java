@@ -32,17 +32,17 @@ public class OrderController {
 	UserService userService;
 	
 	@GetMapping("/getorders")
-	public ResponseEntity<?> getOrders(@RequestParam(defaultValue = "0") Integer pageNo, 
+	public ResponseEntity<?> getAllOrders(@RequestParam(defaultValue = "0") Integer pageNo, 
             @RequestParam(defaultValue = "10") Integer pageSize,
             @RequestParam(defaultValue = "id") String sortBy,@RequestParam(required = false) String username){
 		try {
-			List<Order> list = orderService.getUserOrders(pageNo, pageSize, sortBy,username);
+			List<Order> list = orderService.getOrderByUsername(pageNo, pageSize, sortBy,username);
 			return new ResponseEntity<>(list, new HttpHeaders(), HttpStatus.OK); 
 		}
 		catch(Exception ex) {
 			return new ResponseEntity<>("Unable to fetch orders", new HttpHeaders(), HttpStatus.INTERNAL_SERVER_ERROR); 
 		}
-	}                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        
+	}  
 	
 	@GetMapping("/getorder/{orderId}")
 	public ResponseEntity<?> getOrder(@PathVariable("orderId") int id) {
@@ -103,10 +103,10 @@ public class OrderController {
 		}
 	}
 	
-	@DeleteMapping("/deleteorder/{orderId}")
-	public ResponseEntity<?> deleteOrder(@PathVariable("orderId") int id,@RequestParam(required = true) String userName){
+	@DeleteMapping("/deleteOrder/{orderId}")
+	public ResponseEntity<?> deleteOrder(@PathVariable("orderId") int id,@RequestParam(required = true) String username){
 		try {
-			boolean check = userService.checkAdmin(userName);
+			boolean check = userService.checkAdmin(username);
 			if(check) {
 				Optional<Order> getOrder = this.orderService.getOrderById(id);
 				if(!(getOrder.isPresent())) {

@@ -8,8 +8,8 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
-import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
+
+import org.hibernate.annotations.UpdateTimestamp;
 
 @Entity
 @Table(name = "product")
@@ -38,8 +38,8 @@ public class Product {
 	@Column(name = "seller")
 	private String seller;
 	
-	@Column(name = "createdAt")
-	@Temporal(TemporalType.DATE)
+	@Column(name="createdAt", columnDefinition="TIMESTAMP DEFAULT CURRENT_TIMESTAMP")
+	@UpdateTimestamp
 	private Date createdAt;
 	
 	public Product() {

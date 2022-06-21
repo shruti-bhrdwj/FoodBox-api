@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -19,6 +20,7 @@ import com.foodboxapi.models.Product;
 import com.foodboxapi.services.ProductService;
 
 @RestController
+@CrossOrigin(origins = "http://localhost:4200")
 @RequestMapping("/api/product/")
 public class ProductController {
 	
@@ -37,10 +39,16 @@ public class ProductController {
 		return productService.findProductByVendor(vendorName);
 	}
 	
-	@GetMapping("/searchByName")
-	public List<Product> getProductByCategory(@RequestParam String productName)
+	@GetMapping("/searchByCategory")
+	public List<Product> getProductByCategory(@RequestParam String category)
 	{
-		return productService.findProductByCategory(productName);
+		return productService.findProductByCategory(category);
+	}
+	
+	@GetMapping("/searchByName")
+	public List<Product> getProductByName(@RequestParam String productName)
+	{
+		return productService.findProductByName(productName);
 	}
 	
 	@GetMapping("/{productId}")

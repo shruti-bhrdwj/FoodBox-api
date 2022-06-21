@@ -32,7 +32,7 @@ public class OrderService {
 	@Autowired
 	ProductRepo pRepo;
 	
-	public List<Order> getUserOrders(Integer pageNo, Integer pageSize, String sortBy, String username) throws Exception{
+	public List<Order> getOrderByUsername(Integer pageNo, Integer pageSize, String sortBy, String username) throws Exception{
 		Page<Order> pagedResult;
 		Pageable paging = PageRequest.of(pageNo, pageSize,Sort.by(sortBy));
 		User user = null;
@@ -52,12 +52,12 @@ public class OrderService {
 			if(pagedResult.hasContent()) {
 	            return pagedResult.getContent();
 	        } else {
-	            return new ArrayList<Order>();
+	            return new ArrayList<>();
 	        }
 		}
 		catch(Exception ex) {
 			System.out.println(ex.getMessage());
-			throw new Exception("Unable to retrieve orders "+ex.getMessage().toString());
+			throw new Exception("Unable to retrieve orders "+ex.getMessage());
 		}
 	}
 	
